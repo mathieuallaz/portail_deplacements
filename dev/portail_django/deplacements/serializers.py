@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from deplacements.models import Lieu, Site, Societe, Domicile, Deplacement, Mode, Motif, Raison
+from deplacements.models import Lieu, Site, Societe, Deplacement, Mode, Motif, Raison
+#from deplacements.models import Lieu, Site, Societe, Domicile, Deplacement, Mode, Motif, Raison
 
 class LieuSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,11 +15,6 @@ class SiteSerializer(serializers.ModelSerializer):
 class SocieteSerializer(serializers.ModelSerializer):
     class Meta:
         model=Societe
-        fields='__all__'
-
-class DomicileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Domicile
         fields='__all__'
 
 class DeplacementSerializer(serializers.ModelSerializer):

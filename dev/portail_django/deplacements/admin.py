@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.gis.admin import OSMGeoAdmin
-from .models import Lieu, Site, Societe, Domicile, Deplacement, Mode, Motif, Raison
+from .models import Lieu, Site, Societe, Deplacement, Mode, Motif, Raison
+#from .models import Lieu, Site, Societe, Domicile, Deplacement, Mode, Motif, Raison
 # Register your models here.
 
 
@@ -18,9 +19,9 @@ class SiteAdmin(OSMGeoAdmin):
 class SocieteAdmin(OSMGeoAdmin):
     list_display = ('nom_societe',)
 
-@admin.register(Domicile)
-class DomicileAdmin(OSMGeoAdmin):
-    list_display = ('nom_domicile','adresse', 'utilisateur')
+#@admin.register(Domicile)
+#class DomicileAdmin(OSMGeoAdmin):
+    #list_display = ('nom_domicile','adresse', 'utilisateur')
 
 @admin.register(Deplacement)
 class DeplacementAdmin(OSMGeoAdmin):

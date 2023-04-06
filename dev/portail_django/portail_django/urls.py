@@ -26,4 +26,5 @@ router.registry.extend(deplacement_router.registry)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls))
+    #path('portail_django/', include('deplacements.urls')),
 ]

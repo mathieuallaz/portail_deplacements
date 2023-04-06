@@ -1,20 +1,18 @@
-from django.shortcuts import render
+# To bypass having a CSRF token
 from django.views.decorators.csrf import csrf_exempt
+# parsing data from the client
 from rest_framework.parsers import JSONParser
-from django.http.response import JsonResponse
-from django.http.response import HttpResponse
+# for sending response to the client
+from django.http.response import JsonResponse, HttpResponse
 
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-
-from deplacements.models import Lieu, Site, Societe, Domicile, Deplacement, Mode, Motif, Raison
-from deplacements.serializers import LieuSerializer, SiteSerializer, SocieteSerializer, DomicileSerializer, DeplacementSerializer, ModeSerializer, MotifSerializer, RaisonSerializer
+# Deplacement model
+from deplacements.models import Lieu, Site, Societe, Deplacement, Mode, Motif, Raison
+# API definition for deplacements
+from deplacements.serializers import LieuSerializer, SiteSerializer, SocieteSerializer, DeplacementSerializer, ModeSerializer, MotifSerializer, RaisonSerializer
 
 # Create your views here.
-
-#@csrf_exempt
-#def index(request):
-    #return render(request, 'InfosApp/index.html')
 
 class LieuViewSet(viewsets.ModelViewSet):
     queryset = Lieu.objects.all()
@@ -29,11 +27,6 @@ class SiteViewSet(viewsets.ModelViewSet):
 class SocieteViewSet(viewsets.ModelViewSet):
     queryset = Societe.objects.all()
     serializer_class = SocieteSerializer
-
-class DomicileViewSet(viewsets.ModelViewSet):
-    queryset = Domicile.objects.all()
-    serializer_class = DomicileSerializer
-    permission_classes = (IsAuthenticated, )
 
 class DeplacementViewSet(viewsets.ModelViewSet):
     queryset = Deplacement.objects.all()
@@ -61,16 +54,16 @@ class RaisonViewSet(viewsets.ModelViewSet):
 def societeApi(request,id=0):
     if request.method =='GET':
         societe = Societe.objects.all()
-        societe_serializer=SocieteSerializer(societe,many=True)
+        societe_serializer = SocieteSerializer(societe,many=True)
         return JsonResponse(societe_serializer.data,safe=False)
-    elif request.method=='POST':
-        societe_data=JSONParser().parse(request)
-        societe_serializer=SocieteSerializer(data=societe_data)
+    elif request.method =='POST':
+        societe_data = JSONParser().parse(request)
+        societe_serializer = SocieteSerializer(data=societe_data)
         if societe_serializer.is_valid():
             societe_serializer.save()
-            return JsonResponse("Correctement ajoutée", safe=False)
-        return JsonResponse("Echec de l'ajout", safe=False)
-    elif request.method=='PUT':
+            return JsonResponse("Correctement ajoutée", safe=False) # return JsonResponse(serializer.data, status=201)
+        return JsonResponse("Echec de l'ajout", safe=False) #return JsonResponse(serializer.errors, status=400)
+    elif request.method =='PUT':
         societe_data=JSONParser().parse(request)
         societe = Societe.objects.get(Id_societe=societe_data['Id_societe'])
         societe_serializer=SocieteSerializer(societe,data=societe_data)
@@ -78,7 +71,7 @@ def societeApi(request,id=0):
             societe_serializer.save()
             return JsonResponse("Mise à jour avec succès",safe=False)
         return JsonResponse("Echec de la mise à jour")
-    elif request.method=='DELETE':
-        societe=Societe.objects.get(Id_societe=id)
+    elif request.method =='DELETE':
+        societe = Societe.objects.get(Id_societe=id)
         societe.delete()
         return JsonResponse("Correctement supprimée",safe=False)
