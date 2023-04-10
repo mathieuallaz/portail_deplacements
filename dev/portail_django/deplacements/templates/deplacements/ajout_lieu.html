@@ -1,0 +1,22 @@
+{% extends "deplacements/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<form action="" method="post" autocomplete="off">
+    <head>
+        <script src="C:\Users\mathi\Documents\MDT\TM\portail_deplacements\portail-env\Lib\site-packages\django\contrib\admin\static\admin\js\vendor\jquery\jquery.js"></script>
+        {{form.media}}    
+    </head>   
+    <body>
+    {% csrf_token %}
+    {{form|crispy}}
+    </body>
+    
+    <button type="submit" class ="btn btn-success"> Enregistrer </button>
+    <button onclick="window.location.href='{% url 'deplacements' %}'" type="button" class ="btn btn-light mr-1">
+        Retour
+    </button>
+</form>
+{% endblock content %}

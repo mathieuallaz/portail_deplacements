@@ -1,0 +1,60 @@
+{% extends "deplacements/base.html" %}
+
+{% block content %}
+
+<button onclick="window.location.href='{% url 'ajout_deplacement' %}'" type="button" class ="btn btn-dark mr-1">
+Ajouter un déplacement
+</button>
+<p></p>
+<h1 class="display-15 fw-bold">Déplacements déjà saisis</h1>
+<table class="table table-striped">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Date</td>
+            <td>De</td>
+            <td>À</td>
+            <td>Heure de départ</td>
+            <td>Heure d'arrivée</td>
+            <td>Mode de déplacement</td>
+            <td>Motif du déplacement</td>
+            <td>Raison du choix du mode de déplacement</td>
+            <td>Options</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dep in deplacements %}
+            <tr>
+                <td>{{dep.date}}</td>
+                <td>{{dep.lieu_depart}}</td>
+                <td>{{dep.lieu_arrivee}}</td>
+                <td>{{dep.heure_depart}}</td>
+                <td>{{dep.heure_arrivee}}</td>
+                <td>{{dep.mode}}</td>
+                <td>{{dep.motif}}</td>
+                <td>{{dep.raison}}</td>
+                <td>
+                    <div>
+                        <button onclick="window.location.href='{% url 'edition_deplacement' dep.id_deplacement %}'" type="button" class ="btn btn-light mr-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg>
+                        </button>
+                        <form action="{% url 'supprimer_deplacement' dep.id_deplacement %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% empty %}
+            <li>Aucun déplacement enregistré.</li>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

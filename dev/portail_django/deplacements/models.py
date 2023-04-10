@@ -35,21 +35,36 @@ class Societe(models.Model):
     def __str__(self):
         return self.nom_societe
 
-#class Collaborateur(models.Model):
-    #utilisateur = models.OneToOneField(User, on_delete=models.CASCADE)
-    #fonction = 
-    #taux =
-    #pmr = models.BooleanField()
-    #bike_to_work = models.BooleanField()
+class Profil(models.Model):
+    id_profil = models.AutoField(primary_key=True)
+    utilisateur = models.OneToOneField(User, on_delete=models.CASCADE)
+    fonction = models.ForeignKey('Fonction', null=False, on_delete=models.PROTECT)
+    taux = models.ForeignKey('Taux', null=False, on_delete=models.PROTECT)
+    pmr = models.BooleanField()
+    bike_to_work = models.BooleanField()
+    site = models.ForeignKey(Site, null=False, on_delete=models.PROTECT)
+    societe = models.ForeignKey(Societe, null=False, on_delete=models.PROTECT)
 
-#class Domicile(models.Model):
-    #id_domicile = models.AutoField(primary_key=True)
-    #nom_domicile = models.CharField(max_length=100)
-    #adresse = models.ForeignKey(Lieu, null=False, on_delete=models.PROTECT)
-    #utilisateur = models.ForeignKey(User, on_delete=models.PROTECT)
+    def __str__(self):
+        return self.utilisateur.username
+    
+class Fonction(models.Model):
+    id_fonction = models.AutoField(primary_key=True)
+    nom_fonction = models.CharField(max_length=100)
+    alias_fonction = models.CharField(max_length=100)
 
-    #def __str__(self):
-        #return self.nom_domicile
+    def __str__(self):
+        return self.nom_fonction
+    
+class Taux(models.Model):
+    id_taux = models.AutoField(primary_key=True)
+    taux = models.CharField(max_length=3)
+
+    class Meta:
+        verbose_name_plural = 'Taux'
+
+    def __str__(self):
+        return self.taux
 
 class Deplacement(models.Model):
     id_deplacement = models.AutoField(primary_key=True)
@@ -86,3 +101,4 @@ class Raison(models.Model):
 
     def __str__(self):
         return self.nom_raison
+

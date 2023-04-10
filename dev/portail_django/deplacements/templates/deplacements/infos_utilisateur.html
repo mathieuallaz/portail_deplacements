@@ -1,0 +1,40 @@
+{% extends "deplacements/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    <div class="col-md-2">
+    {{form.utilisateur|as_crispy_field}}
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{form.societe|as_crispy_field}}
+        </div>
+        <div class="col-md-4">
+            {{form.site|as_crispy_field}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{form.fonction|as_crispy_field}}
+        </div>
+        <div class="col-md-4">
+            {{form.taux|as_crispy_field}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{form.pmr|as_crispy_field}}
+        </div>
+        <div class="col-md-4">
+            {{form.bike_to_work|as_crispy_field}}
+        </div>
+    </div>
+
+    <button type="submit" class ="btn btn-success"> Enregistrer </button>
+    <button onclick="window.location.href='{% url 'deplacements' %}'" type="button" class ="btn btn-light mr-1">
+        Retour
+    </button>
+</form>
+{% endblock content %}

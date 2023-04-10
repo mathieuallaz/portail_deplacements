@@ -1,77 +1,76 @@
-# To bypass having a CSRF token
-from django.views.decorators.csrf import csrf_exempt
-# parsing data from the client
-from rest_framework.parsers import JSONParser
-# for sending response to the client
-from django.http.response import JsonResponse, HttpResponse
-
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
-# Deplacement model
-from deplacements.models import Lieu, Site, Societe, Deplacement, Mode, Motif, Raison
-# API definition for deplacements
-from deplacements.serializers import LieuSerializer, SiteSerializer, SocieteSerializer, DeplacementSerializer, ModeSerializer, MotifSerializer, RaisonSerializer
+from django.shortcuts import render, redirect
+from .forms import deplacementsForm, ajout_lieuForm, infos_utilisateurForm
+from .models import Deplacement, Lieu, Profil
+from django.http.response import JsonResponse
+from django.http.response import HttpResponse
 
 # Create your views here.
 
-class LieuViewSet(viewsets.ModelViewSet):
-    queryset = Lieu.objects.all()
-    serializer_class = LieuSerializer
-    permission_classes = (IsAuthenticated, )
+def accueil(request):
+    return render(request, "deplacements/accueil.html")
 
-class SiteViewSet(viewsets.ModelViewSet):
-    queryset = Site.objects.all()
-    serializer_class = SiteSerializer
-    permission_classes = (IsAuthenticated, )
+def deplacements(request):
+    context = {'deplacements':Deplacement.objects.all()}
+    return render(request, "deplacements/deplacements.html", context)
 
-class SocieteViewSet(viewsets.ModelViewSet):
-    queryset = Societe.objects.all()
-    serializer_class = SocieteSerializer
-
-class DeplacementViewSet(viewsets.ModelViewSet):
-    queryset = Deplacement.objects.all()
-    serializer_class = DeplacementSerializer
-    permission_classes = (IsAuthenticated, )
-    filterset_fields =['date', 'utilisateur']
-    search_fields = ['utilisateur']
-
-class ModeViewSet(viewsets.ModelViewSet):
-    queryset = Mode.objects.all()
-    serializer_class = ModeSerializer
-    permission_classes = (IsAuthenticated, )
-
-class MotifViewSet(viewsets.ModelViewSet):
-    queryset = Motif.objects.all()
-    serializer_class = MotifSerializer
-    permission_classes = (IsAuthenticated, )
-
-class RaisonViewSet(viewsets.ModelViewSet):
-    queryset = Raison.objects.all()
-    serializer_class = RaisonSerializer
-    permission_classes = (IsAuthenticated, )
-
-@csrf_exempt
-def societeApi(request,id=0):
+def ajout_deplacement(request, id=0):
     if request.method =='GET':
-        societe = Societe.objects.all()
-        societe_serializer = SocieteSerializer(societe,many=True)
-        return JsonResponse(societe_serializer.data,safe=False)
-    elif request.method =='POST':
-        societe_data = JSONParser().parse(request)
-        societe_serializer = SocieteSerializer(data=societe_data)
-        if societe_serializer.is_valid():
-            societe_serializer.save()
-            return JsonResponse("Correctement ajoutée", safe=False) # return JsonResponse(serializer.data, status=201)
-        return JsonResponse("Echec de l'ajout", safe=False) #return JsonResponse(serializer.errors, status=400)
-    elif request.method =='PUT':
-        societe_data=JSONParser().parse(request)
-        societe = Societe.objects.get(Id_societe=societe_data['Id_societe'])
-        societe_serializer=SocieteSerializer(societe,data=societe_data)
-        if societe_serializer.is_valid():
-            societe_serializer.save()
-            return JsonResponse("Mise à jour avec succès",safe=False)
-        return JsonResponse("Echec de la mise à jour")
-    elif request.method =='DELETE':
-        societe = Societe.objects.get(Id_societe=id)
-        societe.delete()
-        return JsonResponse("Correctement supprimée",safe=False)
+        if id==0:
+            form = deplacementsForm()
+        else:
+            deplacement = Deplacement.objects.get(pk=id)
+            form = deplacementsForm(instance=deplacement)
+        return render(request, "deplacements/ajout_deplacement.html", {'form':form})
+    else:
+        if id==0:
+            form = deplacementsForm(request.POST)
+        else:
+            deplacement = Deplacement.objects.get(pk=id)
+            form = deplacementsForm(request.POST, instance=deplacement)
+        if form.is_valid():
+            form.save()
+        return redirect('/deplacements') #à controler le renvoi
+    
+def supprimer_deplacement(request,id):
+    deplacement = Deplacement.objects.get(pk=id)
+    deplacement.delete()
+    return redirect('/deplacements') #à controler le renvoi
+
+def ajout_lieu(request, id=0):
+
+    if request.method =='GET':
+        if id==0:
+            form = ajout_lieuForm()
+        else:
+            lieu = Lieu.objects.get(pk=id)
+            form = ajout_lieuForm(instance=lieu)
+        return render(request, "deplacements/ajout_lieu.html", {'form':form})
+    else:
+        if id==0:
+            form = ajout_lieuForm(request.POST)
+        else:
+            lieu = Lieu.objects.get(pk=id)
+            form = ajout_lieuForm(request.POST, instance=lieu)
+        if form.is_valid():
+            form.save()
+        return redirect('/deplacements') #à controler le renvoi
+
+def infos_utilisateur(request, id=0):
+    if request.method =='GET':
+        if id==0:
+            form = infos_utilisateurForm()
+        else:
+            profil = Profil.objects.get(pk=id)
+            form = infos_utilisateurForm(instance=profil)
+        return render(request, "deplacements/infos_utilisateur.html", {'form':form})
+    else:
+        if id==0:
+            form = infos_utilisateurForm(request.POST)
+        else:
+            profil = Profil.objects.get(pk=id)
+            form = infos_utilisateurForm(request.POST, instance=profil)
+        if form.is_valid():
+            form.save()
+        return redirect('/deplacements') #à controler le renvoi
+
+    

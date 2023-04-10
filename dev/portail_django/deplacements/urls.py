@@ -1,18 +1,22 @@
-from django.urls import re_path
+from django.urls import path, re_path
 from deplacements import views
-from rest_framework import routers
-from deplacements.views import LieuViewSet, DeplacementViewSet
+# pour Django REST framework # from rest_framework import routers
+# pour Django REST framework # from deplacements.views import LieuViewSet, DeplacementViewSet
 
 
-router = routers.DefaultRouter()
-router.register('deplacements', DeplacementViewSet)
-router.register('lieux', LieuViewSet)
+# pour Django REST framework # router = routers.DefaultRouter()
+# pour Django REST framework # router.register('deplacements', DeplacementViewSet)
+# pour Django REST framework # router.register('lieux', LieuViewSet)
 
 urlpatterns = [
-    #re_path('', views.index),
     #re_path(r'^societe$',views.societeApi),
     #re_path(r'^societe/([0-9]+)$',views.societeApi),
 
-    #re_path(r'^collaborateur$',views.collaborateurApi),
-    #re_path(r'^collaborateur/([0-9]+)$',views.collaborateurApi),
+    path('', views.accueil, name="accueil"),
+    path('deplacements/', views.deplacements, name="deplacements"),
+    path('deplacements/ajout_deplacement/', views.ajout_deplacement, name="ajout_deplacement"),
+    path('deplacements/ajout_deplacement/<int:id>/', views.ajout_deplacement, name='edition_deplacement'),
+    path('deplacements/<int:id>/', views.supprimer_deplacement, name='supprimer_deplacement'),
+    path('deplacements/ajout_lieu/', views.ajout_lieu, name='ajout_lieu'),
+    path('deplacements/infos_utilisateur/', views.infos_utilisateur, name="infos_utilisateur"),
 ]

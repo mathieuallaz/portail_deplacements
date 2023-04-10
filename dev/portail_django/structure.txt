@@ -7,11 +7,12 @@
 |    +--# migrations (includes files related to migrations)
 |    |
 |    +--# templates
-|    |    |--accueil.html
-|    |    |--infos_utilisateur.html
-|    |    |--deplacements.html
-|    |    |--ajout_deplacement.html
-|    |    |--ajout_lieu.html
+|    |  |--# deplacements
+|    |  |   |--accueil.html
+|    |  |   |--infos_utilisateur.html
+|    |  |   |--deplacements.html
+|    |  |   |--ajout_deplacement.html
+|    |  |   |--ajout_lieu.html
 |    |
 |    |-- __init__.py
 |    |-- admin.py

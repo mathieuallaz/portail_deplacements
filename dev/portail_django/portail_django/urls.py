@@ -17,14 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from rest_framework import routers
-from deplacements.urls import router as deplacement_router
+# pour Django REST framework # from rest_framework import routers
+# pour Django REST framework # from deplacements.urls import router as deplacement_router
 
-router = routers.DefaultRouter()
-router.registry.extend(deplacement_router.registry)
+# pour Django REST framework # router = routers.DefaultRouter()
+# pour Django REST framework # router.registry.extend(deplacement_router.registry)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls))
-    #path('portail_django/', include('deplacements.urls')),
+# pour Django REST framework #     path('', include(router.urls)),
+    path('', include('deplacements.urls')),
 ]

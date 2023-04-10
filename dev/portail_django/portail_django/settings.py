@@ -47,9 +47,16 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'corsheaders',
+    'crispy_forms',
+    "crispy_bootstrap5",
+    'location_field.apps.DefaultConfig',
     'deplacements'
     
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
