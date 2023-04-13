@@ -1,24 +1,42 @@
 {% extends "deplacements/base.html" %}
 
 {% block content %}
-<div class="p-5 mb-4 bg-body-tertiary rounded-3">
-  <div class="container-fluid py-5">
-    <h1 class="display-5 fw-bold">Bienvenue !</h1>
-    <p class="col-md-12 fs-4">
-        Ce portail vous permet de noter vos déplacement dans le cadre de l’étude de mobilité du groupe sdplus. 
+<div class="container-fluid py-8">
+  <h1 class="display-5 fw-bold">Bienvenue !</h1>
+    <p class="col-md-12 fs-5">
+        Ce portail vous permet de noter vos déplacements dans le cadre de l’étude de mobilité du groupe sdplus ayant lieu du 24 avril 2023 au 5 mai 2023. 
     </p>
-    <p class="col-md-12 fs-4">   
-        Le mode d’emploi peut être téléchargé ici ou dans la rubrique d’aide ci-dessus
+    <p class="lh-base fs-5">La page <a class="text-reset fw-bold" href="{% url 'infos_utilisateur' %}"> "Mes infos" </a> vous permet de saisir les informations générales vous concernant. Ces informations ne sont à saisir qu'une seule fois par le biais
+      du bouton "Ajouter mes infos". Vous avez toutefois la possibilité de les éditer à l'aide du bouton d'édition : 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+        </svg>.
     </p>
-    <p class="col-md-12 fs-4">  
-        Pour toute question, merci de contacter par courriel Mathieu Allaz, étudiant en charge du projet
-      </p>
-      <p class="col-md-12 fs-4"> 
-        mathieu.allaz@master.hes-so.ch
-      </p>
-      <p class="col-md-12 fs-4"> 
-        Merci beaucoup pour votre participation !
+    <p class="lh-base fs-5">La page <a class="text-reset fw-bold" href="{% url 'deplacements' %}">"Mes déplacements"</a> vous permet de visualiser vos déplacements déjà saisis. Sur cette même page, vous pouvez ajouter un nouveau déplacement par le 
+      biais du bouton correspondant. Un déplacement déjà saisi peut être modifié en cliquant sur le bouton  
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+          </svg>
+          ou supprimé en cliquant sur le bouton 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+            </svg>. 
     </p>
-  </div>
+    <p class="lh-base fs-5">La page <a class="text-reset fw-bold" href="{% url 'ajout_lieu' %}"> "Ajouter un lieu" </a> vous permet d'enregistrer un lieu (une adresse). Une fois
+      le lieu enregistré, il peut être choisi comme lieu de départ ou d'arrivée d'un déplacement dans la liste déroulante correspondante. Un lieu n'est enregistré que si 
+      un nom a été inscrit et qu'un point a été saisi sur la carte (en bas de la page). Les autres informations (rue, numéro d'entrée, NPA, localité) sont facultatifs.
+    </p>
+    <p class="col-md-12 fs-5">  
+      Pour toute question, vous pouvez contacter Mathieu Allaz, étudiant en charge de l'étude, par courriel :
+    </p>
+    <p class="text-center col-md-12 fs-5"> 
+      <a href="mailto:mathieu.allaz@master.hes-so.ch">mathieu.allaz@master.hes-so.ch</a>
+    </p>
+    <p class="text-end col-md-12 fw-semibold fs-5"> 
+      Merci beaucoup pour votre participation !
+    </p>
 </div>
+
 {% endblock content %}

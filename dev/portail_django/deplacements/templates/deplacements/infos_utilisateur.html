@@ -1,40 +1,41 @@
 {% extends "deplacements/base.html" %}
-{% load crispy_forms_tags %}
 
 {% block content %}
-<form action="" method="post" autocomplete="off">
-    {% csrf_token %}
-    <div class="col-md-2">
-    {{form.utilisateur|as_crispy_field}}
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            {{form.societe|as_crispy_field}}
-        </div>
-        <div class="col-md-4">
-            {{form.site|as_crispy_field}}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            {{form.fonction|as_crispy_field}}
-        </div>
-        <div class="col-md-4">
-            {{form.taux|as_crispy_field}}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            {{form.pmr|as_crispy_field}}
-        </div>
-        <div class="col-md-4">
-            {{form.bike_to_work|as_crispy_field}}
-        </div>
-    </div>
-
-    <button type="submit" class ="btn btn-success"> Enregistrer </button>
-    <button onclick="window.location.href='{% url 'deplacements' %}'" type="button" class ="btn btn-light mr-1">
-        Retour
-    </button>
-</form>
+<div class="container">
+<button onclick="window.location.href='{% url 'ajout_infos' %}'" type="button" class ="btn btn-dark mr-1">
+Ajouter mes infos
+</button>
+<p class="fst-italic">Une fois les informations ajoutées, merci de ne plus utiliser ce bouton. Pour modifier vos informations déjà enregistrées, vous pouvez utiliser le bouton d'édition.</p>
+<h1 class="display-5 fw-bold fs-2 my-3">Mes informations</h1>
+</div>
+<div class="container my-3">
+        {% for info in infos_utilisateur %}
+            <p><b>Société dans laquelle vous travaillez principalement :</b><br> {{info.societe}} </p>
+            <p><b>Site sur lequel vous travaillez principalement :</b><br> {{info.site}} </p>
+            <p><b>Votre fonction :</b><br> {{info.fonction}} </p>
+            <p><b>Votre taux d'occupation :</b><br> {{info.taux}} % </p>
+            <p><b>Personne à mobilité réduite :</b><br> 
+                {% if info.pmr == True %} 
+                Oui
+                {% else %}
+                Non
+                {% endif %}
+            </p>
+            <p><b>Participation à l'événement Bike to Work :</b><br> 
+                {% if info.bike_to_work == True %} 
+                Oui
+                {% else %}
+                Non
+                {% endif %}
+            </p>         
+            <button onclick="window.location.href='{% url 'edition_infos' info.id_profil %}'" type="button" class ="btn btn-light mr-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg> Éditer mes infos
+            </button>    
+        {% empty %}
+            <p class="fst-italic">Aucune information enregistrée.</p>
+        {% endfor %}
+</div>
 {% endblock content %}

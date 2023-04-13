@@ -2,9 +2,12 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="container">
+    <h1 class="display-5 fw-bold fs-2 my-3">Ajout/édition d'un déplacement</h1>
+</div>
 <form action="" method="post" autocomplete="off">
     {% csrf_token %}
-    <div class="col-md-2">
+    <div class="col-md-2 my-4">
     {{form.date|as_crispy_field}}
     </div>
     <div class="row">
@@ -15,15 +18,20 @@
             {{form.heure_arrivee|as_crispy_field}}
         </div>
     </div>
-    <div class="row">
+    <div class="row text-bg-secondary p-4">
         <div class="col-md-4">
             {{form.lieu_depart|as_crispy_field}}
+        </div>
+        <div class="col-md-2 text-center align-self-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+            </svg>
         </div>
         <div class="col-md-4">
             {{form.lieu_arrivee|as_crispy_field}}
         </div>
     </div>
-    <div class="row">
+    <div class="row my-4">
         <div class="col-md-4">
             {{form.mode|as_crispy_field}}
         </div>
@@ -34,7 +42,7 @@
             {{form.raison|as_crispy_field}}
         </div>
     </div>
-    {{form.utilisateur|as_crispy_field}}
+
 
     <button type="submit" class ="btn btn-success"> Enregistrer </button>
     <button onclick="window.location.href='{% url 'deplacements' %}'" type="button" class ="btn btn-light mr-1">

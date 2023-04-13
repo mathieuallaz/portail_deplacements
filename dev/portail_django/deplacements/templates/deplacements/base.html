@@ -13,35 +13,38 @@
             <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
               <span class="fs-4">Portail des déplacements du groupe sdplus</span>
             </a>
-          </header>
-        <nav class="navbar navbar-expand-sm bg-light navbar-dark">
-            <ul class="navbar-nav">
-            <li class="nav-item m-1">
-                <button onclick="window.location.href='{% url 'accueil'%}'" class="btn btn-light btn-outline-primary"
-                >Accueil</button>
-            </li>
-            <li class="nav-item m-1">
-              <button onclick="window.location.href='{% url 'infos_utilisateur'%}'" class="btn btn-light btn-outline-primary"
-              >Mes infos</button>
-            </li>
-            <li class="nav-item m-1">
-              <button onclick="window.location.href='{% url 'deplacements'%}'" class="btn btn-light btn-outline-primary"
-              >Mes déplacements</button>
-            </li>
-            <li class="nav-item m-1">
-              <button onclick="window.location.href='{% url 'ajout_lieu'%}'" class="btn btn-light btn-outline-primary"
-              >Ajouter un lieu</button>
-            </li>
-            </ul>
+        </header>
+        <nav class="navbar navbar-expand-lg bg-body-secondary">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'accueil' %}">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'infos_utilisateur' %}">Mes infos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'deplacements' %}">Mes déplacements</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'ajout_lieu' %}">Ajouter un lieu</a>
+                </li>
+              </ul>
+              <span class="navbar-text">
+                Vous êtes connecté avec l'identifiant {{user}} 
+                <button onclick="window.location.href='{% url 'login' %}'" class="btn btn-light btn-outline-primary">Se déconnecter</button>
+              </span>
+            </div>
+          </div>
         </nav>
-        <router-view></router-view>
           <div class="container py-4">
             {% block content %}
             {% endblock content %}
           </div>
         
         <footer class="pt-3 mt-4 text-body-secondary border-top">
-          © Mathieu Allaz - MDT - TM 2023
+          © Mathieu Allaz - UNIGE / HES-SO - Master en développement territorial - 2023
         </footer>
     </div>
 

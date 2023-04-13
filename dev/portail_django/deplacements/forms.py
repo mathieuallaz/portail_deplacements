@@ -1,5 +1,8 @@
 from django.contrib.gis import forms
 from .models import Deplacement, Lieu, Profil
+from django.db.models import Q
+#from django.contrib.auth.forms import 
+#from django.contrib.auth.models import 
 
 
 class DateInput(forms.DateInput):
@@ -11,7 +14,8 @@ class TimeInput(forms.TimeInput):
 class deplacementsForm(forms.ModelForm):
     class Meta:
         model = Deplacement
-        fields = '__all__' #('', '', '')
+        #fields = '__all__'#('date', 'heure_depart', 'heure_arrivee', 'lieu_depart', 'lieu_arrivee', 'mode', 'motif', 'raison')
+        exclude = ('utilisateur',)
         widgets = {
             'date': DateInput(),
             'heure_depart': TimeInput(),
@@ -28,22 +32,24 @@ class deplacementsForm(forms.ModelForm):
             'raison':'Raison du choix du mode de déplacement',
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
+        self.utilisateur = user
         super(deplacementsForm, self).__init__(*args, **kwargs)
+        self.fields['lieu_depart'].queryset = Lieu.objects.filter(Q(utilisateur=user) | Q(utilisateur=1))
+        self.fields['lieu_arrivee'].queryset = Lieu.objects.filter(Q(utilisateur=user) | Q(utilisateur=1))
         self.fields['lieu_depart'].empty_label = "Sélectionner"
         self.fields['lieu_arrivee'].empty_label = "Sélectionner"
         self.fields['mode'].empty_label = "Sélectionner"
         self.fields['motif'].empty_label = "Sélectionner"
         self.fields['raison'].empty_label = "Sélectionner"
-        self.fields['utilisateur'].empty_label = "Sélectionner"
-        #self.fields[''].required = False
 
 class ajout_lieuForm(forms.ModelForm):
     class Meta:
         model = Lieu
-        fields = ('nom', 'rue', 'no_entree', 'npa', 'localite', 'coord',)        
+        #fields = ('nom', 'rue', 'no_entree', 'npa', 'localite', 'coord',)        
+        exclude = ('utilisateur',)
         widgets = {
-            'coord': forms.OSMWidget(attrs={'map_width': 500, 'map_height': 300,}),
+            'coord': forms.OSMWidget(attrs={'map_width': 500, 'map_height': 300, 'default_lon':8.2, 'default_lat':46.8,'default_zoom':7, }),
         }
         labels = {
             'nom':'Nom du lieu',
@@ -53,10 +59,14 @@ class ajout_lieuForm(forms.ModelForm):
             'coord': ''
         }
 
+    def __init__(self, user, *args, **kwargs):
+        self.utilisateur = user
+        super(ajout_lieuForm, self).__init__(*args, **kwargs)
+
 class infos_utilisateurForm(forms.ModelForm):
     class Meta:
         model = Profil
-        fields = '__all__' #('', '', '')
+        exclude = ('utilisateur',)
         labels = {
             'societe':'Pour quelle société travaillez-vous principalement ?',
             'site':'Sur quel site travaillez-vous principalement ?',
@@ -66,10 +76,10 @@ class infos_utilisateurForm(forms.ModelForm):
             'bike_to_work':'Participez-vous à l\'événement Bike to work ?',
         }    
     
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
+        self.utilisateur = user        
         super(infos_utilisateurForm, self).__init__(*args, **kwargs)
         self.fields['societe'].empty_label = "Sélectionner"
         self.fields['site'].empty_label = "Sélectionner"
         self.fields['fonction'].empty_label = "Sélectionner"
         self.fields['taux'].empty_label = "Sélectionner"
-        self.fields['utilisateur'].empty_label = "Sélectionner"

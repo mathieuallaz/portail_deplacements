@@ -1,0 +1,31 @@
+{% extends "deplacements/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <h1 class="display-5 fw-bold fs-2 my-3">Ajout/édition de mes informations</h1>
+</div>
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    <div class="container">
+    <div class="col-md-4">
+        {{form.societe|as_crispy_field}}
+        {{form.site|as_crispy_field}}
+        {{form.fonction|as_crispy_field}}
+        {{form.taux|as_crispy_field}}
+    </div>
+    </div>
+    <div class="col-md-6 text-bg-secondary p-4">
+        {{form.pmr|as_crispy_field}}
+        <p class="fst-italic">Si oui, merci de cocher la case.</p>
+        {{form.bike_to_work|as_crispy_field}}
+        <p class="fst-italic">Si oui, merci de cocher la case.</p>
+    </div>
+<div class="my-3">
+<button type="submit" class ="btn btn-success"> Enregistrer </button>
+<button onclick="window.location.href='{% url 'infos_utilisateur' %}'" type="button" class ="btn btn-light mr-1">
+    Retour
+</button>
+</div>
+</form>
+{% endblock content %}

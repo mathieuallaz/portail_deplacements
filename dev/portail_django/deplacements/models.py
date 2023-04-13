@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 class Lieu(models.Model):
     id = models.AutoField(primary_key=True)
     nom = models.CharField(max_length=100)
-    utilisateurs = models.ManyToManyField(User, blank=True)   
+    #utilisateurs = models.ManyToManyField(User, blank=True)   
+    utilisateur = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     rue = models.CharField(max_length=100, blank=True)
     no_entree = models.CharField(max_length=10, blank=True)
     npa = models.IntegerField(null=True, blank=True)

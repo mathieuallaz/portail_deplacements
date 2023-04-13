@@ -2,21 +2,36 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
-
+<div class="container">
+    <h1 class="display-5 fw-bold fs-2 my-3">Ajout d'un lieu</h1>
+</div>
+<div class="container">
 <form action="" method="post" autocomplete="off">
     <head>
         <script src="C:\Users\mathi\Documents\MDT\TM\portail_deplacements\portail-env\Lib\site-packages\django\contrib\admin\static\admin\js\vendor\jquery\jquery.js"></script>
-        {{form.media}}    
+          
     </head>   
     <body>
-    {% csrf_token %}
-    {{form|crispy}}
+        <div class="row">
+            <div class="col-md-0">
+                {% csrf_token %}
+                {{form.media}}  
+                
+            </div>
+            <div class="col-md-4">
+                {{form|crispy}}
+            </div>
+        </div>
+        <div class="col-md-6 text-bg-warning p-2">
+            <p> Merci d'indiquer un lieu en cliquant sur la carte.</p>
+            <p> Si nécessaire, vous pouvez cliquer sur le lien "Delete all Features" pour supprimer le point afin d'en sélectionner un autre.</p>
+        </div>
     </body>
     
-    <button type="submit" class ="btn btn-success"> Enregistrer </button>
-    <button onclick="window.location.href='{% url 'deplacements' %}'" type="button" class ="btn btn-light mr-1">
+    <button type="submit" class ="btn btn-success mt-4"> Enregistrer </button>
+    <button onclick="window.location.href='{% url 'deplacements' %}'" type="button" class ="btn btn-light mr-1 mt-4">
         Retour
     </button>
 </form>
+</div>
 {% endblock content %}

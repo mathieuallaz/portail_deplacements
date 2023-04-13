@@ -1,34 +1,35 @@
 {% extends "deplacements/base.html" %}
 
 {% block content %}
-
+<div class="container">
 <button onclick="window.location.href='{% url 'ajout_deplacement' %}'" type="button" class ="btn btn-dark mr-1">
 Ajouter un déplacement
 </button>
-<p></p>
-<h1 class="display-15 fw-bold">Déplacements déjà saisis</h1>
+<h1 class="display-5 fw-bold fs-2 my-3">Mes déplacements</h1>
+</div>
+<div class="container">
 <table class="table table-striped">
     <thead class="border-bottom font-weight-bold">
         <tr>
-            <td>Date</td>
-            <td>De</td>
-            <td>À</td>
-            <td>Heure de départ</td>
-            <td>Heure d'arrivée</td>
-            <td>Mode de déplacement</td>
-            <td>Motif du déplacement</td>
-            <td>Raison du choix du mode de déplacement</td>
-            <td>Options</td>
+            <th>Date</th>
+            <th>De</th>
+            <th>À</th>
+            <th>Heure de départ</th>
+            <th>Heure d'arrivée</th>
+            <th>Mode de déplacement</th>
+            <th>Motif du déplacement</th>
+            <th>Raison du choix du mode de déplacement</th>
+            <th>Options</th>
         </tr>
     </thead>
     <tbody>
         {% for dep in deplacements %}
             <tr>
-                <td>{{dep.date}}</td>
+                <td>{{dep.date|date:"d-m-Y"}}</td>
                 <td>{{dep.lieu_depart}}</td>
                 <td>{{dep.lieu_arrivee}}</td>
-                <td>{{dep.heure_depart}}</td>
-                <td>{{dep.heure_arrivee}}</td>
+                <td>{{dep.heure_depart|time:"H:i"}}</td>
+                <td>{{dep.heure_arrivee|time:"H:i"}}</td>
                 <td>{{dep.mode}}</td>
                 <td>{{dep.motif}}</td>
                 <td>{{dep.raison}}</td>
@@ -52,9 +53,10 @@ Ajouter un déplacement
                 </td>
             </tr>
         {% empty %}
-            <li>Aucun déplacement enregistré.</li>
+            <p class="fst-italic">Aucun déplacement enregistré.</p>
         {% endfor %}
     </tbody>
 </table>
+</div>
 
 {% endblock content %}
