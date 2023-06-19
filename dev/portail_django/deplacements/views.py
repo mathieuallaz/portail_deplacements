@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import deplacementsForm, ajout_lieuForm, infos_utilisateurForm
 from .models import Deplacement, Lieu, Profil
-#from django.http.response import JsonResponse
-#from django.http.response import HttpResponse
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -32,6 +30,10 @@ def accueil(request):
     return render(request, "deplacements/accueil.html")
 
 @login_required(login_url='login')
+def consignes(request):
+    return render(request, "deplacements/consignes.html")
+
+@login_required(login_url='login')
 def deplacements(request):
     context = {'deplacements':Deplacement.objects.filter(utilisateur=request.user).order_by('date','heure_depart')}
     return render(request, "deplacements/deplacements.html", context)
@@ -58,14 +60,25 @@ def ajout_deplacement(request, id=0):
         return redirect('/deplacements')
     
 @login_required(login_url='login')
+def recup_deplacement(request, id=0):
+    deplacement = Deplacement.objects.get(pk=id)
+    deplacement.id_deplacement = None
+    deplacement.save(force_insert=True)
+    return redirect('/deplacements')
+    
+@login_required(login_url='login')
 def supprimer_deplacement(request,id):
     deplacement = Deplacement.objects.get(pk=id)
     deplacement.delete()
     return redirect('/deplacements')
 
 @login_required(login_url='login')
-def ajout_lieu(request, id=0):
+def lieux(request):
+    context = {'lieux':Lieu.objects.filter(utilisateur=request.user).order_by('nom')}
+    return render(request, "deplacements/lieux.html", context)
 
+@login_required(login_url='login')
+def ajout_lieu(request, id=0):
     if request.method =='GET':
         if id==0:
             form = ajout_lieuForm(request.user)
@@ -83,7 +96,7 @@ def ajout_lieu(request, id=0):
             lieu = form.save(commit=False)
             lieu.utilisateur = request.user
             lieu.save()
-        return redirect('/deplacements')
+        return redirect('/lieux')
 
 @login_required(login_url='login')
 def infos_utilisateur(request):
@@ -109,6 +122,6 @@ def edition_infos(request, id=0):
             infos_utilisateur = form.save(commit=False)
             infos_utilisateur.utilisateur = request.user
             infos_utilisateur.save()
-        return redirect('/deplacements/infos_utilisateur')
+        return redirect('/infos')
 
     

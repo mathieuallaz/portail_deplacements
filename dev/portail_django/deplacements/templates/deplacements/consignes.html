@@ -1,0 +1,131 @@
+{% extends "deplacements/base.html" %}
+
+{% block content %}
+<div class="container-fluid py-8">
+  <h1 class="display-5 fw-bold fs-2 my-3">Consignes / aide</h1>
+
+  <h2 class="display-5 fw-bold fs-4">Page <a class="text-reset fw-bold" href="{% url 'infos_utilisateur' %}"> &#171&#160;Mes infos&#160;&#187;</a></h2>
+    <p class="lh-base fs-5">Cette page vous permet de saisir les 
+      informations générales vous concernant. Vous ne devez saisir ces informations qu’une seule fois en cliquant sur le bouton &#171&#160;Ajouter mes infos&#160;&#187;. 
+      Vous avez toutefois la possibilité de les éditer en cliquant sur le bouton d'édition&#160;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+        </svg>.
+    </p>
+
+    <h2 class="display-5 fw-bold fs-4">Page <a class="text-reset fw-bold" href="{% url 'deplacements' %}">&#171&#160;Mes déplacements&#160;&#187;</a></h2>
+    <p class="lh-base fs-5">Cette page vous permet de visualiser vos 
+        déplacements déjà saisis. Sur cette même page, vous pouvez ajouter un nouveau déplacement en cliquant sur le bouton correspondant. Vous pouvez modifier un déplacement déjà 
+        saisi en cliquant sur le bouton  
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+          </svg>
+          ou le supprimer en cliquant sur le bouton 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+            </svg>.
+        Vous pouvez également dupliquer un déplacement en cliquant sur le bouton <i style="font-size:24px" class="fa">&#xf0c5;</i>. Ceci vous permet par exemple de dupliquer vos 
+        déplacements fréquents. Vous pouvez ensuite modifier la date ou d'autres données en éditant le déplacement.
+    </p>
+
+    <h2 class="display-5 fw-bold fs-4">Page <a class="text-reset fw-bold" href="{% url 'lieux' %}"> &#171&#160;Mes lieux&#160;&#187;</a></h2>
+    <p class="lh-base fs-5">Cette page vous permet de visualiser vos lieux déjà saisis. 
+      Sur cette même page, vous pouvez ajouter un nouveau lieu en cliquant sur le bouton correspondant. 
+      Une fois le lieu enregistré, vous pouvez le choisir comme lieu de départ ou d'arrivée d'un déplacement dans la liste déroulante correspondante. Un lieu n'est enregistré que 
+      si un nom et un type de lieu ont été inscrits et qu'un point a été saisi sur la carte (en bas de la page). Vous pouvez modifier un lieu déjà saisi en cliquant sur le bouton  
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+      </svg> de la ligne correspondante.
+    </p>
+
+    <h2 class="display-5 fw-bold fs-4">Déplacements</h2>
+    <p class="lh-base fs-5">
+      Vous pouvez saisir un nouveau déplacement sur la page <a class="text-reset fw-bold" href="{% url 'deplacements' %}">&#171&#160;Mes déplacements&#160;&#187;</a>.
+    </p>
+    <p class="lh-base fs-5">
+      Vous devez saisir tous les déplacements liés au travail. Par déplacement lié au travail, on entend&#160;:
+    </p>
+    <ol class="lh-base fs-5">
+      <li>Déplacement pendulaire&#160;: domicile-travail, travail-domicile, direct ou non direct (voir chapitre ci-dessous)&#160;;</li>
+      <li>Déplacement professionnel&#160;;</li>
+      <li>Déplacement domicile-professionnel&#160;: déplacement directement depuis le domicile sur un lieu professionnel (chantier, séance, projet, achats professionnels, etc.).</li>
+    </ol>
+    <p class="lh-base fs-5">
+      Les déplacements purement privés ne doivent pas être saisis (déplacements lors d’un jour de congé ou d’un week-end, déplacement sans lien avec le trajet pendulaire, etc.).
+    </p>
+    <p class="lh-base fs-5">
+      Un déplacement comprend &#160;:
+    </p>
+    <ol class="lh-base fs-5">
+      <li>Un lieu de départ&#160;;</li>
+      <li>Un lieu d'arrivée&#160;;</li>
+      <li>Une date&#160;;</li>
+      <li>Une heure de départ&#160;;</li>
+      <li>Une heure d'arrivée&#160;;</li>
+      <li>Un mode de déplacement&#160;;</li>
+      <li>Un motif de déplacement&#160;;</li>
+      <li>Une raison du choix du mode de déplacement&#160;;</li>
+    </ol>
+
+    <h2 class="display-5 fw-bold fs-4">Déplacements pendulaires non direct</h2>
+    <p class="lh-base fs-5">
+      Afin de donner plus de précision à l’enquête, vous avez la possibilité d’indiquer vos trajets pendulaires par étape, par exemple lorsque vous devez aller chercher 
+      votre enfant à la crèche, aller faire des courses ou aller à un cours de sport avant d’aller au travail ou avant de rentrer à votre domicile. Afin de renseigner un lieu privé, 
+      vous pouvez choisir le type de lieu &#171&#160;Privé (famille, garderie, loisirs, sport, achats privés, activité privée, autre)&#160;&#187; dans la liste des types de lieu lors de la saisie d’un 
+      nouveau lieu. Lors du choix du motif de déplacement, vous pouvez choisir &#171&#160;Activité/contrainte personnelle directement avant ou après le travail (famille, garderie, loisirs, 
+      sport, achats privés)&#160;&#187;.
+    </p>
+    <p class="lh-base fs-5">
+      Si vous ne souhaitez pas donner de précisions sur l’emplacement de vos activités ou contraintes personnelles liées au déplacement pendulaire, vous pouvez enregistrer votre 
+      déplacement pendulaire sans prendre en compte vos étapes. Vous pouvez alors choisir le motif &#171&#160;Domicile-travail (non direct/avec activité ou contrainte personnelle)&#160;&#187;. Vous
+       avez également la possibilité de choisir la raison du mode de déplacement &#171&#160;Parce que j'ai besoin de ma voiture avant ou après le travail dans le cadre privé&#160;&#187; afin
+       d'expliquer l’utilisation de votre voiture alors que le trajet domicile-travail aurait pu normalement être effectué par un autre mode de déplacement (transports publics, vélo, 
+       marche, etc.).
+    </p>
+
+    <h2 class="display-5 fw-bold fs-4">Lieux/adresses/destinations</h2>
+    <p class="lh-base fs-5">
+      Tous les sites du groupe sdplus ont été préenregistrés. Les adresses des sites commencent par &#171&#160;sdplus&#160;&#187;.
+    </p>
+    <p class="lh-base fs-5">
+      Vous pouvez saisir un nouveau lieu sur la page <a class="text-reset fw-bold" href="{% url 'lieux' %}"> &#171&#160;Mes lieux&#160;&#187;</a>. Trois informations sont requises pour qu’un lieu puisse être enregistré&#160;:
+    </p>
+    <ol class="lh-base fs-5">
+      <li>Un nom – ce nom apparaîtra dans les listes de départ et d’arrivée des déplacements. Le libellé est libre (exemple&#160;: &#171&#160;Domicile&#160;&#187; ou &#171&#160;Localité, chantier Xxx&#160;&#187;).</li>
+      <li>Un type de lieu – à choisir parmi la liste prédéfinie. Le type &#171&#160;Privé (famille, garderie, loisirs, sport, achats privés, activité privée, autre)&#160;&#187; est utilisé afin de
+         pouvoir identifier les contraintes privées du matin et du soir (aller chercher son enfant à la crèche, aller faire des courses avant de rentrer à son domicile, etc.).</li>
+      <li>Un point géographique – à saisir sur la carte. Veuillez zoomer avant de cliquer afin que la coordonnée soit suffisamment précise pour le calcul des kilomètres parcourus. 
+        Lorsque un point a été cliqué, il peut être déplacé. Si nécessaire, vous pouvez cliquer sur le lien &#171&#160;Delete all Features&#160;&#187; en dessous de la carte pour supprimer le point 
+        avant d'en sélectionner un autre.</li>
+    </ol>
+    
+    <h2 class="display-5 fw-bold fs-4">Télétravail</h2>
+    <p class="lh-base fs-5">
+      Veuillez renseigner le nombre de jours <b>complets</b> de télétravail (c’est-à-dire les journées sans aucun déplacement) effectués pendant la période de l’enquête 
+      (du 24&#160;avril au 5&#160;mai 2023) sur la page <a class="text-reset fw-bold" href="{% url 'infos_utilisateur' %}"> &#171&#160;Mes infos&#160;&#187;</a>. Ceci permet de pouvoir 
+      les distinguer des jours d’absence (congé, maladie). 
+    </p>
+    
+    <h2 class="display-5 fw-bold fs-4">Jours d'absence (congé, maladie)</h2>
+    <p class="lh-base fs-5">
+      Aucun renseignement n’est requis pour les jours d’absence. 
+    </p>
+    
+    <h2 class="display-5 fw-bold fs-4">Déménagement</h2>
+    <p class="lh-base fs-5">
+      Si vous déménagez durant la période de l’enquête (du 24&#160;avril au 5&#160;mai 2023), vous avez la possibilité de saisir un deuxième lieu de type &#171&#160;Domicile&#160;&#187; 
+      sur la page <a class="text-reset fw-bold" href="{% url 'lieux' %}"> &#171&#160;Mes lieux&#160;&#187;</a>. 
+    </p>
+
+    <h2 class="display-5 fw-bold fs-4">Confidentialité, anonymité</h2>
+    <p class="lh-base fs-5">
+      Toutes les données récoltées sont anonymes et seront traitées de manière confidentielle. 
+    </p>
+    <p class="lh-base fs-5">
+      Les analyses et statistiques effectuées seront mises à la disposition des collaboratrices et des collaborateurs. 
+    </p>
+</div>
+
+{% endblock content %}

@@ -6,12 +6,12 @@ from django.contrib.auth.models import User
 class Lieu(models.Model):
     id = models.AutoField(primary_key=True)
     nom = models.CharField(max_length=100)
-    #utilisateurs = models.ManyToManyField(User, blank=True)   
+    type = models.ForeignKey('Type', null=False, on_delete=models.PROTECT)   
     utilisateur = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     rue = models.CharField(max_length=100, blank=True)
     no_entree = models.CharField(max_length=10, blank=True)
     npa = models.IntegerField(null=True, blank=True)
-    localite = models.CharField(max_length=50, blank=True)
+    localite = models.CharField(max_length=50, null=True, blank=True)
     coord = models.PointField()
 
     class Meta:
@@ -41,6 +41,7 @@ class Profil(models.Model):
     utilisateur = models.OneToOneField(User, on_delete=models.CASCADE)
     fonction = models.ForeignKey('Fonction', null=False, on_delete=models.PROTECT)
     taux = models.ForeignKey('Taux', null=False, on_delete=models.PROTECT)
+    teletravail = models.ForeignKey('Teletravail', null=False, on_delete=models.PROTECT)
     pmr = models.BooleanField()
     bike_to_work = models.BooleanField()
     site = models.ForeignKey(Site, null=False, on_delete=models.PROTECT)
@@ -66,14 +67,21 @@ class Taux(models.Model):
 
     def __str__(self):
         return self.taux
+    
+class Teletravail(models.Model):
+    id_teletravail = models.AutoField(primary_key=True)
+    teletravail = models.CharField(max_length=3)
+
+    def __str__(self):
+        return self.teletravail
 
 class Deplacement(models.Model):
     id_deplacement = models.AutoField(primary_key=True)
     date = models.DateField()
     heure_depart = models.TimeField()
     heure_arrivee = models.TimeField()
-    lieu_depart = models.ForeignKey(Lieu, null=False, on_delete=models.PROTECT, related_name ='deplacements_depart')
-    lieu_arrivee = models.ForeignKey(Lieu, null=False, on_delete=models.PROTECT, related_name ='deplacements_arrivee')
+    lieu_depart = models.ForeignKey(Lieu, null=False, on_delete=models.PROTECT, related_name ='deplacements_lieu_depart')
+    lieu_arrivee = models.ForeignKey(Lieu, null=False, on_delete=models.PROTECT, related_name ='deplacements_lieu_arrivee')
     utilisateur = models.ForeignKey(User, null=False, on_delete=models.PROTECT)
     mode = models.ForeignKey('Mode', null=False, on_delete=models.PROTECT)
     motif = models.ForeignKey('Motif', null=False, on_delete=models.PROTECT)
@@ -89,7 +97,7 @@ class Mode(models.Model):
 
 class Motif(models.Model):
     id_motif = models.AutoField(primary_key=True)
-    nom_motif = models.CharField(max_length=100)
+    nom_motif = models.CharField(max_length=150)
     alias_motif = models.CharField(max_length=100)
 
     def __str__(self):
@@ -102,4 +110,12 @@ class Raison(models.Model):
 
     def __str__(self):
         return self.nom_raison
+
+class Type(models.Model):
+    id_type = models.AutoField(primary_key=True)
+    nom_type = models.CharField(max_length=100)
+    alias_type = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nom_type
 

@@ -4,21 +4,11 @@
 {% block content %}
 <div class="container">
     <h1 class="display-5 fw-bold fs-2 my-3">Ajout/édition d'un déplacement</h1>
+    <p class="fst-italic">Les champs avec une * sont obligatoires</p>
 </div>
 <form action="" method="post" autocomplete="off">
     {% csrf_token %}
-    <div class="col-md-2 my-4">
-    {{form.date|as_crispy_field}}
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-            {{form.heure_depart|as_crispy_field}}
-        </div>
-        <div class="col-md-2">
-            {{form.heure_arrivee|as_crispy_field}}
-        </div>
-    </div>
-    <div class="row text-bg-secondary p-4">
+    <div class="row bg-secondary-subtle p-4">
         <div class="col-md-4">
             {{form.lieu_depart|as_crispy_field}}
         </div>
@@ -30,6 +20,29 @@
         <div class="col-md-4">
             {{form.lieu_arrivee|as_crispy_field}}
         </div>
+    </div>
+    <div class="row bg-secondary-subtle p-4">
+        <p>Votre lieu n'a pas encore été saisi ?</p>
+        <p><a href="{% url 'ajout_lieu' %}">Cliquez-ici pour l'ajouter</a></p>
+    </div>
+    <div class="col-md-2 my-4">
+    {{form.date|as_crispy_field}}
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            {{form.heure_depart|as_crispy_field}}
+        </div>
+        <div class="col-md-2">
+            {{form.heure_arrivee|as_crispy_field}}
+        </div>
+    </div>
+    <div class="alert alert-success
+    alert-dismissible fade show mx-5 mt-4
+    border border-success" role="alert">
+    <b>NOUVEAU! Les modes &#171&#160;Voiture et transports publics&#160;&#187; et &#171&#160;Vélo et transports publics&#160;&#187; ont été ajoutés. Il n'est pas nécessaire d'indiquer vos étapes de correspondance lors de vos déplacements (gare, arrêt de bus, P+R, etc.). Un grand merci pour votre participation !</b>
+    <button type="button" class="btn-close"
+        data-dismiss="alert">
+    </button>
     </div>
     <div class="row my-4">
         <div class="col-md-4">

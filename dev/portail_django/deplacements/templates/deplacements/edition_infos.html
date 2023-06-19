@@ -4,6 +4,7 @@
 {% block content %}
 <div class="container">
     <h1 class="display-5 fw-bold fs-2 my-3">Ajout/édition de mes informations</h1>
+    <p class="fst-italic">Les champs avec une * sont obligatoires</p>
 </div>
 <form action="" method="post" autocomplete="off">
     {% csrf_token %}
@@ -13,6 +14,7 @@
         {{form.site|as_crispy_field}}
         {{form.fonction|as_crispy_field}}
         {{form.taux|as_crispy_field}}
+        {{form.teletravail|as_crispy_field}}
     </div>
     </div>
     <div class="col-md-6 text-bg-secondary p-4">

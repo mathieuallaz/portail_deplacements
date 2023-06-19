@@ -5,7 +5,8 @@
 <button onclick="window.location.href='{% url 'ajout_infos' %}'" type="button" class ="btn btn-dark mr-1">
 Ajouter mes infos
 </button>
-<p class="fst-italic">Une fois les informations ajoutées, merci de ne plus utiliser ce bouton. Pour modifier vos informations déjà enregistrées, vous pouvez utiliser le bouton d'édition.</p>
+<p class="fst-italic">Une fois les informations ajoutées, veuillez ne plus utiliser ce bouton. Pour modifier vos informations déjà enregistrées, vous pouvez utiliser le 
+    bouton d'édition.</p>
 <h1 class="display-5 fw-bold fs-2 my-3">Mes informations</h1>
 </div>
 <div class="container my-3">
@@ -14,6 +15,7 @@ Ajouter mes infos
             <p><b>Site sur lequel vous travaillez principalement :</b><br> {{info.site}} </p>
             <p><b>Votre fonction :</b><br> {{info.fonction}} </p>
             <p><b>Votre taux d'occupation :</b><br> {{info.taux}} % </p>
+            <p><b>Nombre de jours de télétravail entre le 24 avril et le 5 mai 2023 :</b><br> {{info.teletravail}} jour(s) </p>
             <p><b>Personne à mobilité réduite :</b><br> 
                 {% if info.pmr == True %} 
                 Oui

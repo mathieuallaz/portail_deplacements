@@ -16,15 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-# pour Django REST framework # from rest_framework import routers
-# pour Django REST framework # from deplacements.urls import router as deplacement_router
-
-# pour Django REST framework # router = routers.DefaultRouter()
-# pour Django REST framework # router.registry.extend(deplacement_router.registry)
+from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-# pour Django REST framework #     path('', include(router.urls)),
     path('', include('deplacements.urls')),
 ]

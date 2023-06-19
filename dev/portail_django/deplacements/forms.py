@@ -1,8 +1,6 @@
 from django.contrib.gis import forms
-from .models import Deplacement, Lieu, Profil
+from .models import Deplacement, Lieu, Societe, Site, Profil, Mode, Motif, Raison, Type
 from django.db.models import Q
-#from django.contrib.auth.forms import 
-#from django.contrib.auth.models import 
 
 
 class DateInput(forms.DateInput):
@@ -14,7 +12,6 @@ class TimeInput(forms.TimeInput):
 class deplacementsForm(forms.ModelForm):
     class Meta:
         model = Deplacement
-        #fields = '__all__'#('date', 'heure_depart', 'heure_arrivee', 'lieu_depart', 'lieu_arrivee', 'mode', 'motif', 'raison')
         exclude = ('utilisateur',)
         widgets = {
             'date': DateInput(),
@@ -27,32 +24,35 @@ class deplacementsForm(forms.ModelForm):
             'heure_arrivee':'Heure d\'arrivée',
             'lieu_depart':'De',
             'lieu_arrivee':'À',
-            'mode':'Mode de déplacement',
+            'mode':'Mode de déplacement principal',
             'motif':'Motif du déplacement',
-            'raison':'Raison du choix du mode de déplacement',
+            'raison':'Raison du choix du mode de déplacement (sélectionner celle qui semble la plus pertinente)',
         }
 
     def __init__(self, user, *args, **kwargs):
         self.utilisateur = user
         super(deplacementsForm, self).__init__(*args, **kwargs)
-        self.fields['lieu_depart'].queryset = Lieu.objects.filter(Q(utilisateur=user) | Q(utilisateur=1))
-        self.fields['lieu_arrivee'].queryset = Lieu.objects.filter(Q(utilisateur=user) | Q(utilisateur=1))
+        self.fields['lieu_depart'].queryset = Lieu.objects.filter(Q(utilisateur=user) | Q(utilisateur=1)).order_by('-utilisateur', 'nom')
+        self.fields['lieu_arrivee'].queryset = Lieu.objects.filter(Q(utilisateur=user) | Q(utilisateur=1)).order_by('-utilisateur', 'nom')
         self.fields['lieu_depart'].empty_label = "Sélectionner"
         self.fields['lieu_arrivee'].empty_label = "Sélectionner"
         self.fields['mode'].empty_label = "Sélectionner"
+        self.fields['mode'].queryset = Mode.objects.order_by('nom_mode')
         self.fields['motif'].empty_label = "Sélectionner"
+        self.fields['motif'].queryset = Motif.objects.order_by('nom_motif')
         self.fields['raison'].empty_label = "Sélectionner"
+        self.fields['raison'].queryset = Raison.objects.order_by('nom_raison')
 
 class ajout_lieuForm(forms.ModelForm):
     class Meta:
-        model = Lieu
-        #fields = ('nom', 'rue', 'no_entree', 'npa', 'localite', 'coord',)        
-        exclude = ('utilisateur',)
+        model = Lieu      
+        exclude = ('rue', 'no_entree', 'npa', 'localite', 'utilisateur',)
         widgets = {
             'coord': forms.OSMWidget(attrs={'map_width': 500, 'map_height': 300, 'default_lon':8.2, 'default_lat':46.8,'default_zoom':7, }),
         }
         labels = {
-            'nom':'Nom du lieu',
+            'nom':'Nom du lieu qui apparaîtra dans la liste des déplacements (exemple: "Domicile" ou "Localité, chantier Xxx")',
+            'type':'Type du lieu',
             'no_entree':'Numéro de l\'entrée',
             'npa':'NPA',
             'localite':'Localité',
@@ -62,6 +62,8 @@ class ajout_lieuForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         self.utilisateur = user
         super(ajout_lieuForm, self).__init__(*args, **kwargs)
+        self.fields['type'].empty_label = "Sélectionner"
+        self.fields['type'].queryset = Type.objects.order_by('nom_type')
 
 class infos_utilisateurForm(forms.ModelForm):
     class Meta:
@@ -72,6 +74,7 @@ class infos_utilisateurForm(forms.ModelForm):
             'site':'Sur quel site travaillez-vous principalement ?',
             'fonction':'À quel type de fonction appartenez-vous ?',
             'taux':'À quel taux travaillez-vous ?',
+            'teletravail':'Combien de jours complets de télétravail allez-vous effectuer entre le 24 avril et le 5 mai 2023 ?',
             'pmr':'Êtes-vous une personne à mobilité réduite (personne ayant des besoins particuliers en terme de mobilité) ?',
             'bike_to_work':'Participez-vous à l\'événement Bike to work ?',
         }    
@@ -80,6 +83,9 @@ class infos_utilisateurForm(forms.ModelForm):
         self.utilisateur = user        
         super(infos_utilisateurForm, self).__init__(*args, **kwargs)
         self.fields['societe'].empty_label = "Sélectionner"
+        self.fields['societe'].queryset = Societe.objects.order_by('nom_societe')
         self.fields['site'].empty_label = "Sélectionner"
+        self.fields['site'].queryset = Site.objects.order_by('nom_site')
         self.fields['fonction'].empty_label = "Sélectionner"
         self.fields['taux'].empty_label = "Sélectionner"
+        self.fields['teletravail'].empty_label = "Sélectionner"

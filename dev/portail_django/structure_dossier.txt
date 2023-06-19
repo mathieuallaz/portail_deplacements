@@ -1,0 +1,48 @@
+# portail_django
+|
++----# deplacements (dossier de l'application)
+|    |
+|    +--# __pycache__
+|    |
+|    +--# migrations (dossier contenant les fichiers de migrations)
+|    |
+|    +--# templates (dossier contenant les pages html)
+|    |  |--# deplacements
+|    |  |   |--accueil.html
+|    |  |   |--ajout_deplacement.html
+|    |  |   |--ajout_lieu.html
+|    |  |   |--base.html
+|    |  |   |--consignes.html
+|    |  |   |--deplacements.html
+|    |  |   |--edition_infos.html
+|    |  |   |--infos_utilisateur.html
+|    |  |   |--lieux.html
+|    |  |   |--login.html
+|
+|    |-- __init__.py
+|    |-- admin.py (fichier pour la gestion de l'interface administrateur de django)
+|    |-- apps.py
+|    |-- forms.py (fichier qui contient les formulaires qui sont intégrés dans les pages html)
+|    |-- models.py (fichier qui contient le modèle de la base de données, les différentes classes ou entités)
+|    |-- serializers.py
+|    |-- tests.py
+|    |-- urls.py (fichier qui contient les urls)
+|    |-- views.py (fichier des vues et des méthodes CRUD)
+|
++----# portail_django (dossier du projet qui sert à lancer l'application)
+|    |
+|    +--# __pycache__
+|    |
+|    |-- __init__.py
+|    |-- asgi.py
+|    |-- settings.py (fichier des paramètres de django)
+|    |-- urls.py (fichier des urls)
+|    |-- wsgi.py
+|
++----# static (dossier des fichiers statiques utilisé pour la mise en production)
+|
++----GDAL-3.4.3-cp311-cp311-win_amd64.whl (fichier utilisé pour l'installation de la librairie GDAL)
+|
++----manage.py (fichier django qui permet le lancement de l'application)
+|
++----requirements.txt (fichier des librairies utilisées dans l'application)

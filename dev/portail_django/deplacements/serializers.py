@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from deplacements.models import Lieu, Site, Societe, Profil, Fonction, Taux, Deplacement, Mode, Motif, Raison
-#from deplacements.models import Lieu, Site, Societe, Domicile, Deplacement, Mode, Motif, Raison
+from deplacements.models import Lieu, Site, Societe, Profil, Fonction, Taux, Deplacement, Mode, Motif, Raison, Teletravail, Type
 
 class LieuSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,6 +37,11 @@ class TauxSerializer(serializers.ModelSerializer):
         model=Taux
         fields='__all__'
 
+class TeletravailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Teletravail
+        fields='__all__'
+
 class DeplacementSerializer(serializers.ModelSerializer):
     class Meta:
         model=Deplacement
@@ -56,4 +60,9 @@ class MotifSerializer(serializers.ModelSerializer):
 class RaisonSerializer(serializers.ModelSerializer):
     class Meta:
         model=Raison
+        fields='__all__'
+
+class TypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Type
         fields='__all__'
